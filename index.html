@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="./css/loading.css" rel="stylesheet">
+    <link href="./css/hover.css" rel="stylesheet">
+    <link href="./css/custom.css" rel="stylesheet">
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- datatable -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+
+    <!-- Bootstrap-Select CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- Bootstrap-Select JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+   
+    <!-- datatable -->
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+   <!-- Ajax -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!--EXPORT TO TABLE-->
+    <script src=" https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+<title>
+Quest Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Make a generic documentation of all the styles we can use to create the quest websites">
+<meta name="description" content="This is created by Dhvanit Merchant">
+<style>
+    body{
+        padding-top:70px;
+    }
+    .table-info,
+    .table-info > td,
+    .table-info > th {
+        background-color: #15a9df;
+    }
+    select{
+        width:100%;
+    
+    }
+    label{
+           display: inline-block;
+        font-weight: bold;
+        font-size: 14px !important;
+    }
+    input[type=checkbox] {
+        position: relative;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        top: 0;
+        left: 0;
+        border: 2px solid #555555;
+        border-radius: 3px;
+    }
+
+    .fixed-header thead th {
+    position: sticky;
+    top: 0;
+    background-color: #15a9df;
+    }
+
+    #topBtn {
+    display: inline-block;
+    background-color: #15a9df;
+    border: transparent;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 50px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+        opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    }
+    #topBtn::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+    }
+    #topBtn:hover {
+    cursor: pointer;
+    background-color: #333;
+    }
+    #topBtn:active {
+    background-color: #555;
+    }
+    #topBtn.show {
+    opacity: 1;
+    visibility: visible;
+    }
+
+    blockquote{
+    background-color: rgba(212, 212, 212, 0.377);
+    margin: 20px;
+    font-size: 16px;
+
+    }
+
+    .btn-light {
+    height: 38px;
+        color: #495057 !important;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+    </style>
+    <script>
+
+        $(document).ready(function(){
+
+        $(".menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+
+        let button = document.getElementById("button-excel");
+        //Event Listener for getting the button id and downloading the HTML Table
+        button.addEventListener("click", e => {
+                
+                TableToExcel.convert(document.getElementById("test"), {
+                name: "testFile.xlsx",
+                sheet: {
+                    name: 
+                    "testFile"
+                    }
+                }); 
+        
+
+        });
+        var btn = $('#topBtn');
+
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 300) {
+                btn.addClass('show');
+            } else {
+                btn.removeClass('show');
+            }
+        });
+
+        btn.on('click', function(e) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: 0
+            }, '300');
+        });
+        $('#sweet').on('click',function(e){
+
+        if ($('#sweetcheck').is(":checked")){
+            Swal.fire({
+            title: 'CHECKED',
+            text: "checkbox is checked",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+            })
+        }else{
+            Swal.fire({
+            title: 'UNCHECKED',
+            text: "checkbox is unchecked",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+            })
+        }
+})
+        });
+//sweet alert
+
+
+    </script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav list-group list-group-flush">
+
+            <li class="list-group-item">
+                <a href="#bootstrap">Links-Scripts</a>
+            </li>
+            <li class="list-group-item">
+                <a href="#Forms">Forms</a>
+            </li>
+            <li class="list-group-item">
+                <a href="#Buttons">Buttons</a>
+            </li>
+            <li class="list-group-item">
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dropdowns</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#Searchable">Searchable</a>
+                    </li>
+                    <li>
+                        <a href="#NonSearchable">Non-searchable</a>
+                    </li>
+                    <li>
+                        <a href="#Searchablemultiple">Searchable (multiple)</a>
+                    </li>
+                    <li>
+                        <a href="#NonSearchablemultiple">Non-searchable (multiple)</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="list-group-item">
+                <a href="#download">Download any html table</a>
+            </li>
+            <li class="list-group-item">
+                <a href="#SweetAlert">Sweet Alert</a>
+            </li>
+            
+            <li class="list-group-item">
+                <a href="#loadinglogo">Loading logo</a>
+            </li>
+            <li class="list-group-item">
+                <a href="#backToTop">Back to top</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <nav class="navbar-white  navbar-nobottom navbar-default fixed-top" style="background: white;">
+    <div class="header-banner-small" ></div>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#menu-toggle" class="menu-toggle"><i class="fa fa-bars" style="font-size: 25px;color: black;"></i></a>
+ 
+                <a class="navbar-brand" href="index.html#_SV"><img src="images/full-logo.png" class="App-logo" alt="logo"></a>
+                  <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+            </div>
+        </div>
+    </nav>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+    
+        <h1>QUEST Template </h1>
+        <hr/>
+            <div class="row">
+
+                <div class="col-lg-12" id ='Forms'>
+                    <h2 id='bootstrap'>Links and Scripts</h2>
+
+                    <blockquote>
+                        <code>
+<xmp>
+    <link href="./css/loading.css" rel="stylesheet">
+    <link href="./css/hover.css" rel="stylesheet">
+
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
+
+    <!-- Bootstrap-CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- datatable -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" />
+
+    <!-- Bootstrap-Select CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap-Select JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    
+    <!-- datatable -->
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <!--EXPORT TO TABLE-->
+    <script src=" https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+</xmp>
+                        </code>
+
+                    </blockquote>
+                </div>
+                <div class="col-lg-12" id ='Forms'>
+                <p>
+                    <h2>Forms</h2>
+                    <hr/>
+
+            
+                <form action="#">
+                    
+                    <div class="row"><!--row 1-->
+                        <div class="col-sm-6"><!--col-sm-6-->
+                            <div class="form-group">
+                                <div class="row"><!--row 2-->
+                                    <div class="col-sm-2"><!--col-sm-2-->
+                                         <label for="lblJobLabel" class='col-form-label'>Job</label>
+                                    </div><!--col-sm-2-->
+                                    <div class="col-sm-4"><!--col-sm-4-->
+                                        <select class="form-control selectpicker" data-live-search="true">
+                                        <option default  disbled>Please select</option>
+                                        <option>AAA</option>
+                                        <option>OYG</option>
+                                        <option>ARI</option>
+                                        <option>DIM</option>
+                                        <option>VMC</option>
+                                        <option>SSN</option>
+                                        </select>
+                                    </div><!--col-sm-4-->
+                                </div><!--row 2-->
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row"><!--row 2-->
+                                    <div class="col-sm-2"><!--col-sm-2-->
+                                         <label for="lblJobLabel" class='col-form-label'>floor</label>
+                                    </div><!--col-sm-2-->
+                                    <div class="col-sm-4"><!--col-sm-4-->
+                                        <select class="form-control selectpicker" data-live-search="true">
+                                        <option default  >Please select</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>4</option>
+                                        <option>5</option>
+
+                                        </select>
+                                    </div><!--col-sm-4-->
+                                </div><!--row 2-->
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="row"><!--row 2-->
+                                    <div class="col-sm-4"><!--col-sm-2-->
+                                        <label class="form-check-label" for="defaultCheck1"> Default checkbox </label>
+                                    </div><!--col-sm-4-->
+                                    <div class="col-sm-2"><!--col-sm-4-->
+                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    </div><!--col-sm-2-->
+                                </div><!--row 2-->
+                            </div>
+
+
+
+                        </div><!--col-sm-6-->
+                    </div> <!--row 1-->
+
+                        <p>
+                        <h2>Buttons</h2>
+                        <hr/>
+                        <small>Default Button </small>
+                        <button class="btn btn-outline-info">Submit</button>
+
+                        <small>Button With Icon</small>
+                        <button class="btn btn-outline-danger">Delete&nbsp;<i class="fa fa-trash"></i></button>
+
+                        <small>Button With Icon and Animation</small>
+                        <button class='btn btn-md btn-outline-warning hvr-icon-spin'>EDIT&nbsp;<i class="fa fa-pencil hvr-icon"></i></button>
+
+
+                    </p>
+
+                </form>    
+                </p>               
+            </div>
+               
+                <div class="col-lg-12">
+                    <p>
+                    <h2 id='Dropdowns'>Dropdowns</h2>
+                    <hr/>
+
+                    <form action="#">
+                        <h4 id='Searchable'>Searchable</h4>
+                        <small>Add 'selectpicker' class to the select element and add data-live-search="true"
+                        </small>
+                        <br>
+                        <small>  
+                            &lt;select class="form-control  <b>selectpicker</b>" <b>data-live-search="true"</b>&gt;&lt;/select&gt;
+                        </small>
+                        <div class="row"><!--row 1-->
+                            <div class="col-sm-6"><!--col-sm-6-->
+                                <div class="form-group">
+                                    <div class="row"><!--row 2-->
+                                        <div class="col-sm-2"><!--col-sm-2-->
+                                             <label for="lblJobLabel" class='col-form-label'>Label</label>
+                                        </div><!--col-sm-2-->
+                                        <div class="col-sm-4"><!--col-sm-4-->
+                                            <select class="form-control selectpicker" data-live-search="true">
+                                            <option default  >Please select</option>
+                                            <option>AAA</option>
+                                            <option>OYG</option>
+                                            <option>ARI</option>
+                                            <option>DIM</option>
+                                            <option>VMC</option>
+                                            <option>SSN</option>
+                                            </select>
+                                        </div><!--col-sm-4-->
+                                    </div><!--row 2-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="#">
+                        <h4 id='NonSearchable'>Non-Searchable</h4>
+
+                        <small>Remove 'selectpicker' class to the select element and add data-live-search="true"
+                        </small>
+                        <br>
+                        <small>  
+                            &lt;select class="form-control"&gt;&lt;/select&gt;
+                        </small>
+                        <div class="row"><!--row 1-->
+                            <div class="col-sm-6"><!--col-sm-6-->
+                                <div class="form-group">
+                                    <div class="row"><!--row 2-->
+                                        <div class="col-sm-2"><!--col-sm-2-->
+                                             <label for="lblJobLabel" class='col-form-label'>Label</label>
+                                        </div><!--col-sm-2-->
+                                        <div class="col-sm-4"><!--col-sm-4-->
+                                            <select class="form-control selectpicker">
+                                            <option default  >Please select</option>
+                                            <option>AAA</option>
+                                            <option>OYG</option>
+                                            <option>ARI</option>
+                                            <option>DIM</option>
+                                            <option>VMC</option>
+                                            <option>SSN</option>
+                                            </select>
+                                        </div><!--col-sm-4-->
+                                    </div><!--row 2-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="#">
+                        <h4 id='Searchablemultiple'>Searchable (multiple)</h4>
+                        <small>Add 'selectpicker' class to the select element, data-live-search="true" and mutiple
+                        </small>
+                        <br>
+                        <small>  
+                            &lt;select class="form-control  <b>selectpicker</b>" <b>data-live-search="true"</b> <b>multiple</b>&gt;&lt;/select&gt;
+                        </small>
+                        <div class="row"><!--row 1-->
+                            <div class="col-sm-6"><!--col-sm-6-->
+                                <div class="form-group">
+                                    <div class="row"><!--row 2-->
+                                        <div class="col-sm-2"><!--col-sm-2-->
+                                             <label for="lblJobLabel" class='col-form-label'>Label</label>
+                                        </div><!--col-sm-2-->
+                                        <div class="col-sm-4"><!--col-sm-4-->
+                                            <select class="form-control selectpicker" data-live-search="true"  multiple>
+                                            <option default  >Please select</option>
+                                            <option>AAA</option>
+                                            <option>OYG</option>
+                                            <option>ARI</option>
+                                            <option>DIM</option>
+                                            <option>VMC</option>
+                                            <option>SSN</option>
+                                            </select>
+                                        </div><!--col-sm-4-->
+                                    </div><!--row 2-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="#">
+                        <h4 id='NonSearchablemultiple'>Non-Searchable (multiple)</h4>
+                        <small>Remove 'selectpicker' class to the select element and data-live-search="true"
+                        </small>
+                        <br>
+                        <small>  
+                            &lt;select class="form-control" <b>mutiple</b>&gt;&lt;/select&gt;
+                        </small>
+                        <div class="row"><!--row 1-->
+                            <div class="col-sm-6"><!--col-sm-6-->
+                                <div class="form-group">
+                                    <div class="row"><!--row 2-->
+                                        <div class="col-sm-2"><!--col-sm-2-->
+                                             <label for="lblJobLabel" class='col-form-label'>Label</label>
+                                        </div><!--col-sm-2-->
+                                        <div class="col-sm-4"><!--col-sm-4-->
+                                            <select class="form-control selectpicker" multiple>
+                                            <option default >Please select</option>
+                                            <option>AAA</option>
+                                            <option>OYG</option>
+                                            <option>ARI</option>
+                                            <option>DIM</option>
+                                            <option>VMC</option>
+                                            <option>SSN</option>
+                                            </select>
+                                        </div><!--col-sm-4-->
+                                    </div><!--row 2-->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </p>
+                </div>
+                <div class="col-lg-12" id ='download'>
+                    <p>
+                    <h2>Download any html table</h2>
+                    <hr/>
+
+                    <small>Add styles and class to the table element as follow</small>
+                    <br>
+                    <small>
+                    &lt;table id='test' class="<b>table table-hover table-bordered</b>" width='100%' style="border: solid 2px lightgray;text-align: center; max-width:100%;table-layout:fixed;" fixed-header&gt;
+                    <br>
+                    &lt;thead class="<b>table-info</b>"&gt;
+                
+                    
+                </small>
+                    <table id='test' class="table table-hover table-bordered" width='100%' style="border: solid 2px lightgray;text-align: center; max-width:100%;table-layout:fixed;" fixed-header>
+                        <thead class="table-info">
+                          <tr>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <td>Larry the Bird</td>
+                            <td>@twitter</td>
+                            <td>@twitter</td>
+
+                          </tr>
+                        </tbody>
+                      </table>
+                    </p>
+                 <button class="btn btn-sm btn-outline-info" id="button-excel"><i class="fa fa-file-excel-o"></i> Download Report</button>
+<blockquote>
+    <code>
+<xmp>
+<script src=" https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+</xmp>
+<hr>
+
+<xmp>
+
+let button = document.getElementById("button-excel");
+//Event Listener for getting the button id and downloading the HTML Table
+button.addEventListener("click", e => {
+        
+        TableToExcel.convert(document.getElementById("test"), {
+        name: "testFile.xlsx",
+        sheet: {
+            name: 
+            "testFile"
+            }
+        }); 
+
+
+});
+</xmp>
+    </code>
+</blockquote>
+                </div>
+
+                <div class="col-lg-12" id ='SweetAlert'>
+                    <p>
+                    <h2>Sweet Alert</h2>
+                     <hr/>
+                     <small>
+                         This can be used if you want to use any fancy alert just include the script in the head and add your validation
+                        </b>
+                     </small>
+                     <form action="#">
+                        <div class="row"><!--row 1-->
+                            <div class="col-sm-6"><!--col-sm-6-->
+                                <div class="form-group">
+                                    <div class="row"><!--row 2-->
+                                        <div class="col-sm-4"><!--col-sm-2-->
+                                            <label for="sweetcheck" class='col-form-label'>Check me</label>
+                                            
+                                        </div><!--col-sm-2-->
+                                        <div class="col-sm-2"><!--col-sm-4-->
+                                            <input class="form-check-input" type="checkbox" value="" id="sweetcheck">
+                                        </div><!--col-sm-4-->
+                                    </div><!--row 2-->
+                                </div>
+                            </div>
+                        </div>
+                        <button id='sweet' class="btn btn-outline-info">Submit</button>
+                    </form>
+                   <blockquote>
+                       <code>
+<xmp>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</xmp>
+<hr>
+<xmp>
+<form action="#">
+    <div class="row"><!--row 1-->
+        <div class="col-sm-6"><!--col-sm-6-->
+            <div class="form-group">
+                <div class="row"><!--row 2-->
+                    <div class="col-sm-4"><!--col-sm-2-->
+                        <label for="sweetcheck" class='col-form-label'>Check me</label>
+                        
+                    </div><!--col-sm-2-->
+                    <div class="col-sm-2"><!--col-sm-4-->
+                        <input class="form-check-input" type="checkbox" value="" id="sweetcheck">
+                    </div><!--col-sm-4-->
+                </div><!--row 2-->
+            </div>
+        </div>
+    </div>
+    <button id='sweet' class="btn btn-outline-info">Submit</button>
+</form>
+</xmp>
+
+<hr>
+<xmp>
+$('#sweet').on('click',function(e){
+
+    if ($('#sweetcheck').is(":checked")){
+        Swal.fire({
+        title: 'CHECKED',
+        text: "checkbox is checked",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK'
+        })
+    }else{
+        Swal.fire({
+        title: 'UNCHECKED',
+        text: "checkbox is unchecked",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'OK'
+        })
+    }
+})
+</xmp>
+                       </code>
+                   </blockquote>
+                 
+                    </p>
+                </div> 
+                 
+                <div class="col-lg-12" id ='loadinglogo'>
+                    <p>
+                    <h2>Loading logo</h2>
+                     <hr/>
+
+                    <small>You can toggle the visibility when making the ajax call; Hide it when reloading the page.</small>
+                    <div id="LoadingImage" class= "text-center">
+                        <div class= "d-flex justify-content-center" >
+                            <img class="loading ld ld-surprise" style="width:5%"  src='./images/logo.jpg'/>
+                        </div>
+                    </div>
+                    </p>
+                </div> 
+                
+                <div class="col-lg-12" id ='backToTop'>
+                    <p>
+                    <h2>Back to top</h2>
+                    <hr/>
+
+                    <small>The bottom right is the output of this section</small>
+                    <button id="topBtn" title="Go to top"></button>
+
+                    <small>You need to copy styles, scripts and div and paste in your style </small>
+<blockquote>
+<code>
+
+<xmp>
+
+<button id="topBtn" title="Go to top"></button>
+
+<style>
+    #topBtn {
+        display: inline-block;
+        background-color: #15a9df;
+        border: transparent;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        border-radius: 50px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        transition: background-color .3s, 
+            opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
+    #topBtn::after {
+        content: "\f077";
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2em;
+        line-height: 50px;
+        color: #fff;
+    }
+    #topBtn:hover {
+        cursor: pointer;
+        background-color: #333;
+    }
+    #topBtn:active {
+        background-color: #555;
+    }
+    #topBtn.show {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>
+
+<script>
+var btn = $('#topBtn');
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() > 300) {
+        btn.addClass('show');
+    } else {
+        btn.removeClass('show');
+    }
+});
+
+btn.on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: 0
+    }, '300');
+});
+</script>
+</xmp>
+</code>
+</blockquote>
+
+
+                    </p>
+                </div>  
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
